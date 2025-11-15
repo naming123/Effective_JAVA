@@ -41,6 +41,21 @@ public class MemoryMemberRepository implements MemberRepository {
         return new ArrayList<>(store.values());
     }
 
+    @Override
+    public Optional<Member> findByLoginId(String loginId) {
+        return store.values().stream()
+                .filter(member -> loginId.equals(member.getLoginId()))
+                .findAny();
+    }
+
+    @Override
+    public Optional<Member> findByEmail(String email) {
+        return store.values().stream()
+                .filter(member -> email.equals(member.getEmail()))
+                .findAny();
+    }
+
+
     public void clearStore() {
         store.clear();
     }

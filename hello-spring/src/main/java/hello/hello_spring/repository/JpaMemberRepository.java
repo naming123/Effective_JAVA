@@ -1,7 +1,8 @@
 package hello.hello_spring.repository;
 
 import hello.hello_spring.domain.Member;
-import jakarta.persistence.EntityManager;   // ← 여기만 jakarta로 변경
+import jakarta.persistence.EntityManager;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,7 @@ public class JpaMemberRepository implements MemberRepository {
 
     @Override
     public Member save(Member member) {
-        em.persist(member);
+        em.persist(member); // @Entity 로 매핑된 모든 필드가 자동으로 insert 대상
         return member;
     }
 
@@ -38,6 +39,30 @@ public class JpaMemberRepository implements MemberRepository {
                         Member.class
                 )
                 .setParameter("name", name)
+                .getResultList();
+
+        return result.stream().findAny();
+    }
+
+    @Override
+    public Optional<Member> findByLoginId(String loginId) {
+        List<Member> result = em.createQuery(
+                        "select m from Member m where m.loginId = :loginId",
+                        Member.class
+                )
+                .setParameter("loginId", loginId)
+                .getResultList();
+
+        return result.stream().findAny();
+    }
+
+    @Override
+    public Optional<Member> findByEmail(String email) {
+        List<Member> result = em.createQuery(
+                        "select m from Member m where m.email = :email",
+                        Member.class
+                )
+                .setParameter("email", email)
                 .getResultList();
 
         return result.stream().findAny();

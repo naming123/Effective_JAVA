@@ -1,17 +1,16 @@
 package hello.hello_spring;
-import hello.hello_spring.repository.*;
-import hello.hello_spring.service.MemberService;
-import org.springframework.context.annotation.Bean;
+
+import hello.hello_spring.repository.MemberRepository;
+import hello.hello_spring.repository.SpringDataJpaMemberRepository;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class SpringConfig {
-    private final MemberRepository memberRepository;
-    public SpringConfig(MemberRepository memberRepository) {
+
+    private final SpringDataJpaMemberRepository memberRepository;
+
+    public SpringConfig(SpringDataJpaMemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
-    @Bean
-    public MemberService memberService() {
-        return new MemberService(memberRepository);
-    }
+
 }

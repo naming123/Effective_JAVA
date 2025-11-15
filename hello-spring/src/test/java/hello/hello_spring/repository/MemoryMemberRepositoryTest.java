@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import hello.hello_spring.domain.Member;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class MemoryMemberRepositoryTest {
